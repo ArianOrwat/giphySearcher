@@ -1,0 +1,42 @@
+<template>
+  <div class="search">
+    <div>{{msg}}</div>
+    <input id="search" type="text" @input="search" />
+    <h2 id="wynik">{{result}}</h2>
+    <h4 id="error">{{error}}</h4>
+  </div>
+</template>
+
+<script>
+
+import axios from 'axios';
+import debounce from 'lodash.debounce';
+
+const API = 'https://api.giphy.com/v1/gifs/search?api_key=fHRCXpCm0g0bZekk3MnhMQEpXm8vEmNd';
+
+export default {
+  name: 'Search',
+  props: {
+    msg: String,
+  },
+  data() {
+    return {
+      input: '',
+      error: '',
+      result: [],
+    }
+  },
+  methods: {
+    search: debounce(function () {
+      this.input = document.querySelector('#search');
+      axios.get(`${API}&q=${this.input}&limit=25&offset=0&rating=G&lang=en`)
+        .then(result => this.result = result)
+        .catch(err => this.error = err)
+    }, 500),
+  },
+}
+</script>
+
+<style scoped>
+
+</style>
