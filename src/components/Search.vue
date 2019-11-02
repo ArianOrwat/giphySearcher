@@ -24,15 +24,15 @@ export default {
   },
   methods: {
     search: debounce(function () {
-      this.input = document.querySelector('#search');
-      axios.get(`${API}&q=${this.input}&limit=25&offset=0&rating=G&lang=en`)
-        .then(result => this.$emit('result', result))
+      this.input = document.querySelector('#search').value;
+      axios.get(`${API}&q=${this.input}&limit=15&offset=0&rating=G&lang=en`)
+        .then(result => this.$emit('result', result.data.data))
         .catch(err => this.error = this.$emit('error', err))
     }, 500),
   },
 }
 </script>
 
-<style scoped>
+<style lang="sass" scoped>
 
 </style>

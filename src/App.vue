@@ -1,13 +1,15 @@
 <template>
   <div id="app">
     <Search msg="Hello World" v-on:result="result = $event" v-on:error="error = $event"/>
-    <h2 id="wynik">{{result}}</h2>
+    <div v-for="item in result" :key="item.title" class="image">
+      <img :src="item.images.downsized.url" :alt="item.title">
+    </div>
     <h4 id="error">{{error}}</h4>
   </div>
 </template>
-
 <script>
-import Search from './components/Search.vue'
+import Search from './components/Search.vue';
+// import Result from './components/Result.vue';
 
 export default {
   name: 'app',
